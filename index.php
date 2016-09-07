@@ -2,73 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Dangle Project</title>
-  <meta content="Dangle Project" name="file storage app for personal use. Built using mysql in php">
+  <title>myDrive</title>
+  <meta content="php/mysql folder/file storage" name="file storage app for personal use. Built using mysql in php">
   <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity=
   "sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
-  <style type="text/css">
-    body
-    {
-    background:#404040
-    }
 
-    .glyphicon.glyphicon-trash 
-    {
-    font-size: 85%;
-    width:100px;
-    heigh: 100px;
-    width:100%;
-    }
-
-    .fileinput-button 
-    {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-    }
-
-    .fileinput-button input 
-    {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    opacity: 0;
-    -ms-filter: 'alpha(opacity=0)';
-    font-size: 200px;
-    direction: ltr;
-    cursor: pointer;
-    }
-
-    .file
-    {
-    width:100px;height:100px;
-    border:1px solid #aaaaaa;
-     /*  padding-top: 20px;
-    margin-top:20px;
-    text-align:center; */
-    }
-    #deleteZone 
-    {
-    padding:10px;
-    border:1px solid #aaaaaa;
-    }
-  </style>
 </head>
 <body>
-  <!--
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
--->
   <!-- <link rel="stylesheet" href="css/dropzone.css"> -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
   </script> 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
   </script> <!-- <script src="js/dropzone.js"></script> -->
-   <!-- javascript/jquery code -->
-   
+  <link href="css/style.css" rel="stylesheet">
+  
+ <!-- javascript/jquery code -->
   <script src="js/script.js">
   </script>
   <div class="container" style="background-color:lightgrey;">

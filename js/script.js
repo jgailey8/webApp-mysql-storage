@@ -178,7 +178,6 @@ function onFileChange(selected)
 
     for (var i = 0, f; file = files[i]; i++)
     {
-        //console.log(file);
         // console.log(file.name);
         $row  = "<li class='list-group-item'> \
                 " + file.name+"     "+ file.size + ":bytes</li>";
