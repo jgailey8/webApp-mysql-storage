@@ -2,33 +2,10 @@ DROP DATABASE IF EXISTS myDrive;
 --
 -- Database: `myDrive`
 --
+DROP DATABASE IF EXISTS myDrive;
+
 CREATE DATABASE IF NOT EXISTS `myDrive` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `myDrive`;
-
-DELIMITER $$
---
--- Procedures
---
---Procedure returns path of a folder
-CREATE DEFINER=`jared`@`%` PROCEDURE `getPath` (IN `selectedFolder` CHAR(32))  BEGIN
-  DECLARE nextDir CHAR(32);
-CREATE TEMPORARY TABLE OUT_TEMP( folder varchar(32));
-  while selectedFolder is not null do
-	-- select selectedFolder;
-    insert into OUT_TEMP(folder) values (selectedFolder);
-	set nextDir = (select ParentFolder from Folder where FolderName=selectedFolder);
-	set selectedFolder = nextDir;
-	-- select nextDir;
--- print @next;
--- set @curDir = @next;
-  END WHILE;
-  select * from OUT_TEMP;
-DROP TEMPORARY TABLE OUT_TEMP;
-END$$
-
-DELIMITER ;
-
--- --------------------------------------------------------
 
 -- Table structure for table `Files`
 
@@ -41,12 +18,6 @@ CREATE TABLE `Files` (
   `ParentFolder` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table `Files`
-INSERT INTO `Files` (`FileName`, `FileType`, `FileSize`, `FileData`, `FileDate`, `ParentFolder`) VALUES
-('file3', NULL, 0, NULL, '2016-05-17 10:07:44', 'Work'),
-('test1', '', 0, '', '2016-08-10 18:20:54', NULL),
-('test1', '', 0, '', '2016-08-10 18:21:05', NULL);
-
 -- --------------------------------------------------------
 
 -- Table structure for table `Folder`
@@ -58,11 +29,16 @@ CREATE TABLE `Folder` (
 
 -- Dumping data for table `Folder`
 INSERT INTO `Folder` (`FolderName`, `ParentFolder`, `UserName`) VALUES
-('folder1', 'Work', 'User'),
-('folder2', 'Work', 'User'),
-('User', NULL, 'User'),
-('Work', 'User', 'User');
+('folder1', NULL, 'User'),
+('folder2', NULL, 'User'),
+('folder3', 'folder1', 'User');
 
+-- Dumping data for table `Files`
+INSERT INTO `Files` (`FileName`, `FileType`, `FileSize`, `FileData`, `FileDate`, `ParentFolder`) VALUES
+('file3', NULL, 0, NULL, '2016-05-17 10:07:44', 'folder1'),
+('file1', '', 0, '', '2016-08-10 18:20:54', NULL),
+('file2', '', 0, '', '2016-08-10 18:21:05', NULL),
+('file4', '', 0, '', '2016-08-10 18:21:05', 'folder3');
 -- --------------------------------------------------------
 
 -- Table structure for table `Users`
@@ -100,3 +76,22 @@ ALTER TABLE `Files`
 ALTER TABLE `Folder`
   ADD CONSTRAINT `Folder_ibfk_1` FOREIGN KEY (`UserName`) REFERENCES `Users` (`UserName`),
   ADD CONSTRAINT `Folder_ibfk_2` FOREIGN KEY (`ParentFolder`) REFERENCES `Folder` (`FolderName`);
+
+DELIMITER 
+
+# Procedure returns path of a folder
+-- traverses folder path and stores path in temporary table
+-- 		can i do this one sql query? or without creating a temporary table?
+CREATE PROCEDURE `getPath` (IN `selectedFolder` CHAR(32))  BEGIN
+  DECLARE nextDir CHAR(32);
+CREATE TEMPORARY TABLE OUT_TEMP( folder varchar(32));
+  while selectedFolder is not null do
+    insert into OUT_TEMP(folder) values (selectedFolder);
+	set nextDir = (select ParentFolder from Folder where FolderName=selectedFolder);
+	set selectedFolder = nextDir;
+  END WHILE;
+  select * from OUT_TEMP;
+DROP TEMPORARY TABLE OUT_TEMP;
+END$$
+
+DELIMITER ;

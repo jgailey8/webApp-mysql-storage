@@ -78,9 +78,9 @@ $(document).ready(function() {
 
 //fetch and display current directory
 //not the most elegant implementation
-function fetchDirectory(directory="Jared") {
-    if(directory != "Jared")
-    {
+function fetchDirectory(directory="") {
+    if(directory != "")
+    {               
           $("#folder-path").append("<li>"+directory+"</li>");
     }
     // console.log("getting files from folder "+directory);
@@ -92,7 +92,7 @@ function fetchDirectory(directory="Jared") {
         dataType: 'json',
         data: {"folderName":directory}, 
         success: function(data) {
-            // console.log(data);
+            console.log(data);
             //not the most elegant implementation but simple
 
             $.each(data.Folders, function(key, value) {
