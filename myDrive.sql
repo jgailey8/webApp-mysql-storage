@@ -77,11 +77,14 @@ ALTER TABLE `Folder`
   ADD CONSTRAINT `Folder_ibfk_1` FOREIGN KEY (`UserName`) REFERENCES `Users` (`UserName`),
   ADD CONSTRAINT `Folder_ibfk_2` FOREIGN KEY (`ParentFolder`) REFERENCES `Folder` (`FolderName`);
 
-DELIMITER 
+DELIMITER //
 
 # Procedure returns path of a folder
 -- traverses folder path and stores path in temporary table
 -- 		can i do this one sql query? or without creating a temporary table?
+--      fix: identify folder using username,parentFolder to correctly
+#			 reference folders with same name
+#			add arguments for username,foldername and handle NULL correctly
 CREATE PROCEDURE `getPath` (IN `selectedFolder` CHAR(32))  BEGIN
   DECLARE nextDir CHAR(32);
 CREATE TEMPORARY TABLE OUT_TEMP( folder varchar(32));
@@ -92,6 +95,6 @@ CREATE TEMPORARY TABLE OUT_TEMP( folder varchar(32));
   END WHILE;
   select * from OUT_TEMP;
 DROP TEMPORARY TABLE OUT_TEMP;
-END$$
+END//
 
 DELIMITER ;

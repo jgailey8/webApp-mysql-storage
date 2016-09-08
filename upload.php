@@ -1,6 +1,4 @@
 <?php
-
-
 $msg = array();
 $fileNames = array();
 
@@ -28,9 +26,16 @@ $fileNames = array();
             $fileNames[$i] = $_FILES['myFile']['name'][$i];
             //print json_encode($msg[$i]);
             
-        $sql = "INSERT INTO Files (FileName, FileType, FileSize, FileData,ParentFolder) 
+        if(empty($curFolder)
+        {
+            $sql = "INSERT INTO Files (FileName, FileType, FileSize, FileData,ParentFolder) 
+            VALUES (?, '$mime' , '$size' ,'$data', NULL )";
+        }
+        else
+        {
+            $sql = "INSERT INTO Files (FileName, FileType, FileSize, FileData,ParentFolder) 
             VALUES (?, '$mime' , '$size' ,'$data', '$curFolder' )";
-
+        }
         // $sql = "INSERT INTO Files (FileName, FileType, FileSize, FileData,ParentFolder) 
         //     VALUES (?, '$mime' , '$size' ,'$data', 'Jared' )";
         

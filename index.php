@@ -26,7 +26,7 @@
     <?php
          //session is started in header
         //also checks if logged in
-        // include 'header.php';
+         include 'header.php';
     ?>
       <div class="panel panel-default">
         <div class="panel-body">
